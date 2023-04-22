@@ -20,6 +20,9 @@ class BlueskyEndpoints():
     def getAccountInviteCodes(self):
         return self.get_url("/xrpc/com.atproto.server.getAccountInviteCodes")
     
+    def describeServer(self):
+        return self.get_url("/xrpc/com.atproto.server.describeServer")
+    
     # app.bsky.actor
     def getProfile(self):
         return self.get_url("/xrpc/app.bsky.actor.getProfile")
@@ -68,5 +71,31 @@ class BlueskyEndpoints():
     
     def updateHandle(self):
         return self.get_url("/xrpc/com.atproto.identity.updateHandle")
+    
+    def getAllEndpoints(self):
+        all = []
+
+        all.append(self.createAccount())
+        all.append(self.createSession())
+        all.append(self.getSession())
+        all.append(self.getAccountInviteCodes())
+        all.append(self.getProfile())
+        all.append(self.getProfiles())
+        all.append(self.getPopular())
+        all.append(self.getTimeline())
+        all.append(self.getAuthorFeed())
+        all.append(self.getPostThread())
+        all.append(self.getFollowers())
+        all.append(self.getFollows())
+        all.append(self.listNotifications())
+        all.append(self.updateSeen())
+        all.append(self.createRecord())
+        all.append(self.deleteRecord())
+        all.append(self.resolveHandle())
+        all.append(self.updateHandle())
+
+        return all
+
+    
 
 

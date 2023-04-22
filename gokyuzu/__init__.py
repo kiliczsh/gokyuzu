@@ -36,6 +36,11 @@ class Bluesky():
         response = self.SESSION.get(request_url)
         return response
 
+    def describeServer(self):
+        request_url = self.ENDPOINTS.describeServer()
+        response = self.SESSION.get(request_url)
+        return response
+
     # app.bsky.actor
     def getProfile(self, user_did):
         request_url = self.ENDPOINTS.getProfile() + "?actor={}".format(user_did)

@@ -91,3 +91,11 @@ class TestBluesky(unittest.TestCase):
         self.assertIsNotNone(timeline)
         feed = timeline.json().get('feed')
         self.assertEqual(len(feed), 10)
+
+    def test_options(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        all_endpoints = bsky.ENDPOINTS.getAllEndpoints()
+        for endpoint in all_endpoints:
+            response = bsky.SESSION.options(endpoint)
+            print("{}: {}".format(endpoint, response.status_code))
+            # print(response.headers.get("Access-Control-Allow-Methods"))
