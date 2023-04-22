@@ -35,5 +35,14 @@ python -m unittest
 ### Publishing to PyPI
 
 ```bash
-twine upload dist/*
+# Build for PyPI
+python -m build
+
+# Test PyPI
+python -m twine upload --repository testpypi dist/*
+pip install --index-url https://test.pypi.org/simple/ --no-deps gokyuzu
+
+# PyPI
+python -m twine upload dist/*
+pip install gokyuzu
 ```

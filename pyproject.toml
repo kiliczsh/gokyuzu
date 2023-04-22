@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "gokyuzu"
+version = "0.0.3"
+description = "bsky.social client library"
+authors = ["Muhammed Kılıç <muhammeddkilicc@gmail.com>"]
+license = "MIT"
+homepage = "https://github.com/kiliczsh/gokyuzu"
+repository = "https://github.com/kiliczsh/gokyuzu"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = ">=2.22.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"

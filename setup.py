@@ -2,8 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='gokyuzu',
-    version='0.0.1',
+    version='0.0.3',
     description='bsky.social client library',
+    long_description=open('README.md', 'r', encoding='utf-8').read(),
+    long_description_content_type='text/markdown',
     author='Muhammed Kılıç',
     author_email='muhammeddkilicc@gmail.com',
     url='https://github.com/kiliczsh/gokyuzu',
