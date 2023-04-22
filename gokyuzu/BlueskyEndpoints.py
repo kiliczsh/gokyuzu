@@ -30,3 +30,9 @@ class BlueskyEndpoints():
     
     def getFollows(self):
         return self.get_url("/xrpc/app.bsky.graph.getFollows")
+    
+    def listNotifications(self):
+        return self.get_url("/xrpc/app.bsky.notification.listNotifications")
+    
+    def updateSeen(self):
+        return self.get_url("/xrpc/app.bsky.notification.updateSeen")

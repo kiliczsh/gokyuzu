@@ -1,3 +1,4 @@
+
 import json
 from gokyuzu.BlueskyEndpoints import BlueskyEndpoints
 from gokyuzu.BlueskyHelper import BlueskyHelper
@@ -70,4 +71,15 @@ class Bluesky():
         
         request_url = self.ENDPOINTS.getFollows() + "?actor={}&limit={}&cursor={}".format(actor, limit, cursor)
         response = self.SESSION.get(request_url)
+        return response
+    
+    def listNotifications(self, limit=10, cursor=""):
+        request_url = self.ENDPOINTS.listNotifications() + "?limit={}&cursor={}".format(limit, cursor)
+        response = self.SESSION.get(request_url)
+        return response
+    
+    def updateSeen(self, limit=10, cursor=""):
+        data = { "seenAt": "{}".format(BlueskyHelper.getTimestamp()) }
+        request_url = self.ENDPOINTS.updateSeen() + "?limit={}&cursor={}".format(limit, cursor)
+        response = self.SESSION.postJson(request_url, json=data)
         return response

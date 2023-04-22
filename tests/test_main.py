@@ -69,3 +69,18 @@ class TestBluesky(unittest.TestCase):
         self.assertNotEqual(follows.json().get('follows'), '')
         self.assertNotEqual(follows.json().get('follows'), None)
         print(f"Follows count: {len(follows.json().get('follows'))}")
+
+    def test_listNotifications(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        notifications = bsky.listNotifications()
+        self.assertIsNotNone(notifications)
+        self.assertNotEqual(notifications.json().get('notifications'), '')
+        self.assertNotEqual(notifications.json().get('notifications'), None)
+        print(f"Notifications count: {len(notifications.json().get('notifications'))}")
+
+    def test_updateSeen(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        updateSeenAt = bsky.updateSeen()
+        print(updateSeenAt.status_code)
+        print(updateSeenAt.content)
+        self.assertIsNotNone(updateSeenAt)
