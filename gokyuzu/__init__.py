@@ -83,3 +83,8 @@ class Bluesky():
         request_url = self.ENDPOINTS.updateSeen() + "?limit={}&cursor={}".format(limit, cursor)
         response = self.SESSION.postJson(request_url, json=data)
         return response
+    
+    def getTimeline(self, limit=10, cursor="", algorithm="reverse-chronological"):
+        request_url = self.ENDPOINTS.getTimeline() + "?algorithm={}&limit={}&cursor={}".format(algorithm, limit, cursor)
+        response = self.SESSION.get(request_url)
+        return response

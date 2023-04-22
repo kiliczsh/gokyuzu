@@ -82,5 +82,12 @@ class TestBluesky(unittest.TestCase):
         bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
         updateSeenAt = bsky.updateSeen()
         print(updateSeenAt.status_code)
-        print(updateSeenAt.content)
+        # print(updateSeenAt.content)
         self.assertIsNotNone(updateSeenAt)
+
+    def test_getTimeline(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        timeline = bsky.getTimeline()
+        self.assertIsNotNone(timeline)
+        feed = timeline.json().get('feed')
+        self.assertEqual(len(feed), 10)
