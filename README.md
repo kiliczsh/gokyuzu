@@ -22,15 +22,26 @@ print(response.json())
 
 List of Implemented API Calls:
 
-- `resolveHandle(username)`
-- `getProfile(user_did)`
-- `follow(handle=None, user_did=None)`
-- `getAccountInviteCodes(limit=10)`
-- `getFollowers(handle=None, user_did=None, limit=10, cursor="")`
-- `getFollows(handle=None, user_did=None, limit=10, cursor="")`
-- `listNotifications(limit=10, cursor="")`
-- `updateSeen(limit=10, cursor="")`
-- `getTimeline(limit=10, cursor="", algorithm="reverse-chronological")`
+- `createAccount(self, email, handle, password, inviteCode)`
+- `getSession(self)`
+- `getAccountInviteCodes(self, limit=10)`
+- `getProfile(self, user_did)`
+- `getProfiles(self, user_dids)`
+- `getPopular(self, limit=10, cursor="")`
+- `getTimeline(self, limit=10, cursor="", algorithm="reverse-chronological")`
+- `getAuthorFeed(self, handle=None, user_did=None, limit=10, cursor="")`
+- `getPostThread(self, post_id, limit=10, cursor="")`
+- `getFollowers(self, handle=None, user_did=None, limit=10, cursor="")`
+- `getFollows(self, handle=None, user_did=None, limit=10, cursor="")`
+- `listNotifications(self, limit=10, cursor="")`
+- `updateSeen(self, limit=10, cursor="")`
+- `createRecord(self, repo, record, collection)`
+- `deleteRecord(self, repo, record, collection)`
+- `follow(self, handle=None, user_did=None)`
+- `unfollow(self, handle=None, user_did=None)`
+- `resolveHandle(self, handle)`
+- `updateHandle(self, handle)`
+
 
 ### Development
 
