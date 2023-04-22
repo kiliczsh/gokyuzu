@@ -18,6 +18,20 @@ response = bsky.resolveHandle("handle.bsky.social")
 print(response.json())
 ```
 
+### Documentation
+
+List of Implemented API Calls:
+
+- `resolveHandle(username)`
+- `getProfile(user_did)`
+- `follow(handle=None, user_did=None)`
+- `getAccountInviteCodes(limit=10)`
+- `getFollowers(handle=None, user_did=None, limit=10, cursor="")`
+- `getFollows(handle=None, user_did=None, limit=10, cursor="")`
+- `listNotifications(limit=10, cursor="")`
+- `updateSeen(limit=10, cursor="")`
+
+
 ### Development
 
 ```bash
