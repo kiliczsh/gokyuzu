@@ -1,3 +1,4 @@
+import json
 from gokyuzu.BlueskyEndpoints import BlueskyEndpoints
 from gokyuzu.BlueskyHelper import BlueskyHelper
 from gokyuzu.BlueskySession import BlueskySession
@@ -44,5 +45,15 @@ class Bluesky():
 
     def getAccountInviteCodes(self, limit=10):
         request_url = self.ENDPOINTS.getAccountInviteCodes() + "?limit={}".format(limit)
+        response = self.SESSION.get(request_url)
+        return response
+    
+    def getFollowers(self, handle=None, limit=10, cursor=""):
+        if handle:
+            actor = handle
+        else:
+            raise ValueError("Invalid username")
+        
+        request_url = self.ENDPOINTS.getFollowers() + "?actor={}&limit={}&cursor={}".format(actor, limit, cursor)
         response = self.SESSION.get(request_url)
         return response

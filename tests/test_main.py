@@ -26,9 +26,6 @@ class TestBluesky(unittest.TestCase):
 
     def test_getProfile(self):
         bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
-        self.assertIsNotNone(bsky.SESSION)
-        self.assertIsNotNone(bsky.SESSION.DID)
-
         profile = bsky.getProfile(bsky.SESSION.DID)
         self.assertIsNotNone(profile)
         self.assertNotEqual(profile.json().get('did'), '')
@@ -40,3 +37,11 @@ class TestBluesky(unittest.TestCase):
         self.assertNotEqual(invitationCodes.json().get('codes'), '')
         self.assertNotEqual(invitationCodes.json().get('codes'), None)
         print(f"Invitation codes count: {len(invitationCodes.json().get('codes'))}")
+
+    def test_getFollowers(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        followers = bsky.getFollowers(bsky.SESSION.HANDLE)
+        self.assertIsNotNone(followers)
+        self.assertNotEqual(followers.json().get('followers'), '')
+        self.assertNotEqual(followers.json().get('followers'), None)
+        print(f"Followers count: {len(followers.json().get('followers'))}")

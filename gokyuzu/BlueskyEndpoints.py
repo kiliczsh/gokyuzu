@@ -24,3 +24,6 @@ class BlueskyEndpoints():
     
     def getAccountInviteCodes(self):
         return self.get_url("/xrpc/com.atproto.server.getAccountInviteCodes")
+    
+    def getFollowers(self):
+        return self.get_url("/xrpc/app.bsky.graph.getFollowers")
