@@ -21,3 +21,6 @@ class BlueskyEndpoints():
     
     def deleteRecord(self):
         return self.get_url("/xrpc/com.atproto.repo.deleteRecord")
+    
+    def getAccountInviteCodes(self):
+        return self.get_url("/xrpc/com.atproto.server.getAccountInviteCodes")

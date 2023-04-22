@@ -41,3 +41,8 @@ class Bluesky():
 
         response = self.SESSION.post(self.ENDPOINTS.createRecord(), json=follow_request_data)
         return response
+
+    def getAccountInviteCodes(self, limit=10):
+        request_url = self.ENDPOINTS.getAccountInviteCodes() + "?limit={}".format(limit)
+        response = self.SESSION.get(request_url)
+        return response

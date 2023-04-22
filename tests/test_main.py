@@ -2,10 +2,14 @@ import unittest
 import os
 from gokyuzu import *
 
-BSKY_SOCIAL_HANDLE = os.environ.get('BSKY_SOCIAL_HANDLE')
-BSKY_SOCIAL_PASSWORD = os.environ.get('BSKY_SOCIAL_PASSWORD')
+BSKY_SOCIAL_HANDLE = str(os.environ.get('BSKY_SOCIAL_HANDLE'))
+BSKY_SOCIAL_PASSWORD = str(os.environ.get('BSKY_SOCIAL_PASSWORD'))
 
 class TestBluesky(unittest.TestCase):
+    def test_env(self):
+        self.assertNotEqual(BSKY_SOCIAL_HANDLE, '')
+        self.assertNotEqual(BSKY_SOCIAL_PASSWORD, '')
+
     def test_login(self):
         bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
         self.assertIsNotNone(bsky.SESSION)
@@ -28,3 +32,11 @@ class TestBluesky(unittest.TestCase):
         profile = bsky.getProfile(bsky.SESSION.DID)
         self.assertIsNotNone(profile)
         self.assertNotEqual(profile.json().get('did'), '')
+
+    def test_invitationCodes(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        invitationCodes = bsky.getAccountInviteCodes()
+        self.assertIsNotNone(invitationCodes)
+        self.assertNotEqual(invitationCodes.json().get('codes'), '')
+        self.assertNotEqual(invitationCodes.json().get('codes'), None)
+        print(f"Invitation codes count: {len(invitationCodes.json().get('codes'))}")
