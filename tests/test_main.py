@@ -6,6 +6,10 @@ BSKY_SOCIAL_HANDLE = str(os.environ.get('BSKY_SOCIAL_HANDLE'))
 BSKY_SOCIAL_PASSWORD = str(os.environ.get('BSKY_SOCIAL_PASSWORD'))
 
 class TestBluesky(unittest.TestCase):
+    def test_health(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        bsky.health()
+
     def test_env(self):
         self.assertNotEqual(BSKY_SOCIAL_HANDLE, '')
         self.assertNotEqual(BSKY_SOCIAL_PASSWORD, '')

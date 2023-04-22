@@ -192,3 +192,8 @@ class Bluesky():
 
         response = self.SESSION.postJson(self.ENDPOINTS.updateHandle(), json=request_data)
         return response
+
+    def health(self):
+        request_url = self.ENDPOINTS.health()
+        response = self.SESSION.get(request_url)
+        return response
