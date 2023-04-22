@@ -27,3 +27,6 @@ class BlueskyEndpoints():
     
     def getFollowers(self):
         return self.get_url("/xrpc/app.bsky.graph.getFollowers")
+    
+    def getFollows(self):
+        return self.get_url("/xrpc/app.bsky.graph.getFollows")

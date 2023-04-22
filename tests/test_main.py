@@ -38,10 +38,34 @@ class TestBluesky(unittest.TestCase):
         self.assertNotEqual(invitationCodes.json().get('codes'), None)
         print(f"Invitation codes count: {len(invitationCodes.json().get('codes'))}")
 
-    def test_getFollowers(self):
+    def test_getFollowers_by_username(self):
         bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
         followers = bsky.getFollowers(bsky.SESSION.HANDLE)
         self.assertIsNotNone(followers)
         self.assertNotEqual(followers.json().get('followers'), '')
         self.assertNotEqual(followers.json().get('followers'), None)
         print(f"Followers count: {len(followers.json().get('followers'))}")
+
+    def test_getFollowers_by_did(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        followers = bsky.getFollowers(user_did=bsky.SESSION.DID)
+        self.assertIsNotNone(followers)
+        self.assertNotEqual(followers.json().get('followers'), '')
+        self.assertNotEqual(followers.json().get('followers'), None)
+        print(f"Followers count: {len(followers.json().get('followers'))}")
+
+    def test_getFollows_by_username(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        follows = bsky.getFollows(bsky.SESSION.HANDLE)
+        self.assertIsNotNone(follows)
+        self.assertNotEqual(follows.json().get('follows'), '')
+        self.assertNotEqual(follows.json().get('follows'), None)
+        print(f"Follows count: {len(follows.json().get('follows'))}")
+    
+    def test_getFollows_by_did(self):
+        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+        follows = bsky.getFollows(user_did=bsky.SESSION.DID)
+        self.assertIsNotNone(follows)
+        self.assertNotEqual(follows.json().get('follows'), '')
+        self.assertNotEqual(follows.json().get('follows'), None)
+        print(f"Follows count: {len(follows.json().get('follows'))}")

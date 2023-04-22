@@ -48,12 +48,26 @@ class Bluesky():
         response = self.SESSION.get(request_url)
         return response
     
-    def getFollowers(self, handle=None, limit=10, cursor=""):
+    def getFollowers(self, handle=None, user_did=None, limit=10, cursor=""):
         if handle:
             actor = handle
+        elif user_did:
+            actor = user_did
         else:
-            raise ValueError("Invalid username")
+            raise ValueError("Invalid username or did")
         
         request_url = self.ENDPOINTS.getFollowers() + "?actor={}&limit={}&cursor={}".format(actor, limit, cursor)
+        response = self.SESSION.get(request_url)
+        return response
+    
+    def getFollows(self, handle=None, user_did=None, limit=10, cursor=""):
+        if handle:
+            actor = handle
+        elif user_did:
+            actor = user_did
+        else:
+            raise ValueError("Invalid username or did")
+        
+        request_url = self.ENDPOINTS.getFollows() + "?actor={}&limit={}&cursor={}".format(actor, limit, cursor)
         response = self.SESSION.get(request_url)
         return response
