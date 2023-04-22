@@ -31,3 +31,9 @@ pip install -r requirements.txt
 ```bash
 python -m unittest
 ```
+
+### Publishing to PyPI
+
+```bash
+twine upload dist/*
+```
