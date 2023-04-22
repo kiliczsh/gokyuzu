@@ -30,7 +30,7 @@ List of Implemented API Calls:
 - `getFollows(handle=None, user_did=None, limit=10, cursor="")`
 - `listNotifications(limit=10, cursor="")`
 - `updateSeen(limit=10, cursor="")`
-
+- `getTimeline(limit=10, cursor="", algorithm="reverse-chronological")`
 
 ### Development
 

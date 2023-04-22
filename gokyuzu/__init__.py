@@ -1,5 +1,3 @@
-
-import json
 from gokyuzu.BlueskyEndpoints import BlueskyEndpoints
 from gokyuzu.BlueskyHelper import BlueskyHelper
 from gokyuzu.BlueskySession import BlueskySession
