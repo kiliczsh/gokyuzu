@@ -64,6 +64,13 @@ class BlueskySession():
         response = requests.post(url, headers=headers, data=data, json=json, **kwargs)
         return response
     
+    def post(self, url, headers=None, data=None, json=None, **kwargs):
+        if headers is None:
+            headers = {}
+        headers['Authorization'] = f'Bearer {self.getAccessToken()}'
+        response = requests.post(url, headers=headers, data=data, json=json, **kwargs)
+        return response
+    
     def postJson(self, url, json, **kwargs):
         headers = { 'Authorization': f'Bearer {self.getAccessToken()}', 'Content-Type': 'application/json' }
         response = requests.post(url, headers=headers, json=json, **kwargs)

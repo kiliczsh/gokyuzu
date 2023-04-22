@@ -74,6 +74,12 @@ class BlueskyEndpoints():
     def getPostThread(self):
         return self.get_url("/xrpc/app.bsky.feed.getPostThread")
     
+    def getLikes(self):
+        return self.get_url("/xrpc/app.bsky.feed.getLikes")
+    
+    def getRepostedBy(self):
+        return self.get_url("/xrpc/app.bsky.feed.getRepostedBy")
+
     # app.bsky.graph    
     def getFollowers(self):
         return self.get_url("/xrpc/app.bsky.graph.getFollowers")

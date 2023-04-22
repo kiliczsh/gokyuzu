@@ -81,6 +81,16 @@ class Bluesky():
         response = self.SESSION.get(request_url)
         return response
 
+    def getLikes(self, post_id, limit=10, cursor=""):
+        request_url = self.ENDPOINTS.getLikes() + "?uri={}&limit={}&cursor={}".format(post_id, limit, cursor)
+        response = self.SESSION.get(request_url)
+        return response
+
+    def getRepostedBy(self, post_id, limit=10, cursor=""):
+        request_url = self.ENDPOINTS.getRepostedBy() + "?uri={}&limit={}&cursor={}".format(post_id, limit, cursor)
+        response = self.SESSION.get(request_url)
+        return response
+
     # app.bsky.graph
     def getFollowers(self, handle=None, user_did=None, limit=10, cursor=""):
         if handle:
@@ -197,3 +207,28 @@ class Bluesky():
         request_url = self.ENDPOINTS.health()
         response = self.SESSION.get(request_url)
         return response
+
+    def uploadImage(self, image_path, content_type="image/jpeg"):
+        request_url = self.ENDPOINTS.uploadBlob()
+        headers = {"Content-Type": content_type}
+        with open(image_path, 'rb') as f:
+            data = f.read()
+            response = self.SESSION.post(request_url, data=data, headers=headers)
+        return response
+
+    def searchTypeAhead(self, query="", limit=10):
+        typeahead_url = "https://bsky.social/xrpc/app.bsky.actor.searchActorsTypeahead"
+        request_url = "{}?term={}&limit={}".format(typeahead_url, query, limit)
+        response = self.SESSION.get(request_url)
+        return response
+
+    def search(self, query_type="posts", query=""):
+        request_url = "https://search.bsky.social/search/{}?q={}".format(query_type, query)
+        response = self.SESSION.get(request_url)
+        return response
+
+    def search_profiles(self, query):
+        return self.search(query_type="profiles", query=query)
+    
+    def search_posts(self, query):
+        return self.search(query_type="posts", query=query)
