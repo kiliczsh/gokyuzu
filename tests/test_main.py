@@ -1,10 +1,11 @@
 import unittest
+import os
 from gokyuzu import *
 
-BSKY_SOCIAL_HANDLE = "handle.bsky.social"
-BSKY_SOCIAL_PASSWORD = ""
+BSKY_SOCIAL_HANDLE = os.environ.get('BSKY_SOCIAL_HANDLE')
+BSKY_SOCIAL_PASSWORD = os.environ.get('BSKY_SOCIAL_PASSWORD')
 
-class TestBlueskyLogin(unittest.TestCase):
+class TestBluesky(unittest.TestCase):
     def test_login(self):
         bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
         self.assertIsNotNone(bsky.SESSION)
