@@ -132,3 +132,4 @@ dmypy.json
 ./gokyuzu/__pycache__/
 ./venv/
 .DS_Store
+.vscode/

@@ -76,7 +76,27 @@ class BlueskySession():
         response = requests.post(url, headers=headers, json=json, **kwargs)
         return response
     
+    def postJpeg(self, url, jpeg, **kwargs):
+        headers = { 'Authorization': f'Bearer {self.getAccessToken()}', 'Content-Type': 'image/jpeg' }
+        response = requests.post(url, headers=headers, data=jpeg, **kwargs)
+        return response
+    
     def options(self, url, **kwargs):
         headers = {'Authorization': f'Bearer {self.getAccessToken()}'}
         response = requests.options(url, headers=headers, **kwargs)
         return response
+    
+    def createRecord(self, request_data, **kwargs):
+        request_url = self.ENDPOINTS.createRecord()
+        headers = { 'Authorization': f'Bearer {self.getAccessToken()}', 'Content-Type': 'application/json' }
+        response = requests.post(request_url, headers=headers, json=request_data, **kwargs)
+        return response
+    
+    def deleteRecord(self, request_data, **kwargs):
+        request_url = self.ENDPOINTS.deleteRecord()
+        headers = { 'Authorization': f'Bearer {self.getAccessToken()}', 'Content-Type': 'application/json' }
+        response = requests.post(request_url, headers=headers, json=request_data, **kwargs)
+        return response
+                
+
+
