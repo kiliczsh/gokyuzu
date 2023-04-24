@@ -347,6 +347,14 @@ class Bluesky():
         response = self.SESSION.postJson(request_url, json=request_data)
         return response
     
+    def createAppPassword(self, app_name):
+        request_url = self.ENDPOINTS.createAppPassword()
+        request_data = {
+            "name": app_name
+        }
+        response = self.SESSION.postJson(request_url, json=request_data)
+        return response
+
     def createInviteCode(self, useCount, user_did=None):
         request_url = self.ENDPOINTS.createInviteCode()
         if user_did is None:
@@ -407,6 +415,11 @@ class Bluesky():
         response = self.SESSION.get(request_url)
         return response
 
+    def listAppPasswords(self):
+        request_url = self.ENDPOINTS.listAppPasswords()
+        response = self.SESSION.get(request_url)
+        return response
+    
     def requestAccountDelete(self):
         request_url = self.ENDPOINTS.requestAccountDelete()
         response = self.SESSION.post(request_url)

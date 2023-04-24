@@ -128,8 +128,8 @@ class BlueskyEndpoints():
     def getSession(self):
         return self.get_url("/xrpc/com.atproto.server.getSession")
 
-    def listAppPassword(self):
-        return self.get_url("/xrpc/com.atproto.server.listAppPassword")
+    def listAppPasswords(self):
+        return self.get_url("/xrpc/com.atproto.server.listAppPasswords")
 
     def resetPassword(self):
         return self.get_url("/xrpc/com.atproto.server.resetPassword")

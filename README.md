@@ -68,11 +68,13 @@ List of Implemented API Calls:
 #### com.atproto.server
 
 - `def createAccount( email, handle, password, inviteCode)` 
+- `def createAppPassword( name)`
 - `def createInviteCode( useCount, user_did=None)` 
 - `def createInviteCodes( useCount, codeCount=1, user_did=None)` 
 - `def deleteAccount( token, password, handle=None, user_did=None)` 
 - `def describeServer()` 
 - `def deleteSession()` 
+- `def listAppPassword()`
 - `def getAccountInviteCodes( limit=10, includeUsed=True, create_available=True)` 
 - `def getSession()` 
 - `def requestAccountDelete()` 
