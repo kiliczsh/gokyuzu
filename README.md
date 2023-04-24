@@ -81,6 +81,7 @@ List of Implemented API Calls:
 - `def requestPasswordReset( email)` 
 - `def resetPassword( email, password)` 
 - `def refreshSession()` 
+- `def revokeAppPassword( app_name)`
 
 #### com.atproto.sync
 

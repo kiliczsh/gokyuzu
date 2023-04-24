@@ -451,6 +451,14 @@ class Bluesky():
         self.SESSION.useResponseBody(response.content)
         return response
 
+    def revokeAppPassword(self, app_name):
+        request_url = self.ENDPOINTS.revokeAppPassword()
+        request_data = {
+            "name": app_name
+        }
+        response = self.SESSION.postJson(request_url, json=request_data)
+        return response
+
     #endregion
 
     #region com.atproto.sync
