@@ -515,7 +515,14 @@ class Bluesky():
         return response
 
     def getRepo(self, did, earliest=None, latest=None):
-        request_url = self.ENDPOINTS.getRepo() + "?did{}&earliest={}&latest={}".format(did, earliest, latest)
+        if earliest is not None and latest is not None:
+            request_url = self.ENDPOINTS.getRepo() + "?did={}&earliest={}&latest={}".format(did, earliest, latest)
+        elif earliest is not None:
+            request_url = self.ENDPOINTS.getRepo() + "?did={}&earliest={}".format(did, earliest)
+        elif latest is not None:
+            request_url = self.ENDPOINTS.getRepo() + "?did={}&latest={}".format(did, latest)
+        else:
+            request_url = self.ENDPOINTS.getRepo() + "?did={}".format(did)
         response = self.SESSION.get(request_url)
         return response
     
