@@ -27,7 +27,7 @@ class BlueskyEndpoints():
     def getModerationReports(self):
         return self.get_url("/xrpc/com.atproto.admin.getModerationReports")
         
-    def getRecord(self):
+    def getAdminRecord(self):
         return self.get_url("/xrpc/com.atproto.admin.getRecord")
         
     def getRepo(self):
@@ -164,7 +164,7 @@ class BlueskyEndpoints():
     def getHead(self):
         return self.get_url("/xrpc/com.atproto.sync.getHead")
     
-    def getRecord(self):
+    def getSyncRecord(self):
         return self.get_url("/xrpc/com.atproto.sync.getRecord")
     
     def getRepo(self):

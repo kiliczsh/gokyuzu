@@ -57,7 +57,7 @@ List of Implemented API Calls:
 - `def createRecord( repo, record, collection, record_key=None, validate=True, swapCommit=None)` 
 - `def deleteRecord( repo, record, collection, swapRecord=None, swapCommit=None)` 
 - `def describeRepo( repo)` 
-- `def getRecord( user_did, collection, record_key, commit=None)` 
+- `def getAdminRecord( user_did, collection, record_key, commit=None)` 
 - `def listRecords( user_did, collection, limit=10, record_key_start=None, record_key_end=None, reverse=False)` 
 - `def putRecord( repo, collection, record_key, record, validate=True, swapRecord=None, swapCommit=None)` 
 - `def uploadBlob( blob_bytes)` 
@@ -90,7 +90,7 @@ List of Implemented API Calls:
 - `def getCheckout( did, commit=None)` 
 - `def getCommitPath( did, latest=None, earliest=None)` 
 - `def getHead( did)` 
-- `def getRecord( did, collection, record_key, commit=None)` 
+- `def getSyncRecord( did, collection, record_key, commit=None)` 
 - `def getRepo( did, earliest=None, latest=None)` 
 - `def listBlobs( did, latest, earliest)` 
 - `def notifyOfUpdate( hostname)` 
@@ -156,6 +156,7 @@ List of Implemented API Calls:
 #### Other
 
 - `def health()` 
+- `def createLinkFromAtUri( at_uri)`
 - `def quote( text, repo, record_uri, record_cid, createdAt=None)` 
 - `def delete_post( repo, record_key)` 
 - `def comment( text, repo, reply_root_uri, reply_root_cid, reply_parent_uri, reply_parent_cid, createdAt=None)` 

@@ -69,8 +69,8 @@ class Bluesky():
         response = self.SESSION.get(request_url, json=request_data)
         return response
         
-    def getRecord(self, uri=None, cid=None):
-        request_url = self.ENDPOINTS.getRecord()
+    def getAdminRecord(self, uri=None, cid=None):
+        request_url = self.ENDPOINTS.getAdminRecord()
         request_data = {}
         if uri is not None:
             request_data['uri'] = uri
@@ -242,14 +242,10 @@ class Bluesky():
         return response
 
     def getRecord(self, user_did, collection, record_key, commit=None):
-        request_url = self.ENDPOINTS.getRecord()
-        request_data = {
-            "repo": user_did,
-            "collection": collection,
-            "rkey": record_key,
-            "cid": commit
-        }
-        response = self.SESSION.postJson(request_url, json=request_data)
+        request_url = self.ENDPOINTS.getRecord() + "?repo={}&collection={}&rkey={}".format(user_did, collection, record_key)
+        if commit is not None:
+            request_url += "&commit={}".format(commit)
+        response = self.SESSION.get(request_url)
         return response
 
     def listRecords(self, user_did, collection, limit=10, record_key_start=None, record_key_end=None, reverse=False):
@@ -501,8 +497,8 @@ class Bluesky():
         response = self.SESSION.get(request_url)
         return response
 
-    def getRecord(self, did, collection, record_key, commit=None):
-        request_url = self.ENDPOINTS.getRecord()
+    def getSyncRecord(self, did, collection, record_key, commit=None):
+        request_url = self.ENDPOINTS.getSyncRecord()
         request_data = {
             "did": did,
             "collection": collection,
@@ -808,25 +804,30 @@ class Bluesky():
         request_url = self.ENDPOINTS.health()
         response = self.SESSION.get(request_url)
         return response
+    
+    def createLinkFromAtUri(self, at_uri):
+        did, rkey = BlueskyHelper.analyze_at_uri(at_uri)
+        handle = self.getProfile(did).json().get("handle")
+        return BlueskyHelper.createPostLink(handle, rkey)
 
     def quote(self, text, repo, record_uri, record_cid, createdAt=None):
         if createdAt is None:
             createdAt = BlueskyHelper.getTimestamp()
 
         request_data = {
-            "collection": BlueskyRecords.Post,
+            "collection": str(BlueskyRecords.Post),
             "repo": repo,
             "record":{
                 "text": text,
                 "embed":{
-                "$type": BlueskyRecords.EmbedRecord,
+                "$type": str(BlueskyRecords.EmbedRecord),
                 "record":{
                     "uri": record_uri,
                     "cid": record_cid
                 }
                 },
                 "createdAt": createdAt,
-                "$type": BlueskyRecords.Post
+                "$type": str(BlueskyRecords.Post)
             }
         }
         response = self.SESSION.createRecord(request_data=request_data)
@@ -834,7 +835,7 @@ class Bluesky():
 
     def delete_post(self, repo, record_key):
         request_data = {
-            "collection": BlueskyRecords.Post,
+            "collection": str(BlueskyRecords.Post),
             "repo": repo,
             "rkey": record_key
         }
@@ -847,7 +848,7 @@ class Bluesky():
             createdAt = BlueskyHelper.getTimestamp()
 
         request_data = {
-            "collection": BlueskyRecords.Post,
+            "collection": str(BlueskyRecords.Post),
             "repo": repo,
             "record":{
                 "text":text,
@@ -862,7 +863,7 @@ class Bluesky():
                     }
                 },
                 "createdAt": createdAt,
-                "$type": BlueskyRecords.Post
+                "$type": str(BlueskyRecords.Post)
             }
         }
         response = self.SESSION.createRecord(request_data=request_data)

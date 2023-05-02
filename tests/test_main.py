@@ -96,10 +96,21 @@ class TestBluesky(unittest.TestCase):
         feed = timeline.json().get('feed')
         self.assertEqual(len(feed), 10)
 
-    def test_options(self):
-        bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
-        all_endpoints = bsky.ENDPOINTS.getAllEndpoints()
-        for endpoint in all_endpoints:
-            response = bsky.SESSION.options(endpoint)
-            print("{}: {}".format(endpoint, response.status_code))
-            # print(response.headers.get("Access-Control-Allow-Methods"))
+    # WARNING: This test is working but it is not a good idea to post a comment on every test run.
+
+    # def test_timeline_comment(self):
+    #     pass
+    #     bsky = Bluesky(BSKY_SOCIAL_HANDLE, BSKY_SOCIAL_PASSWORD)
+    #     timeline_feed = bsky.getTimeline().json().get('feed')
+    #     timeline_item =timeline_feed[0]
+    #     author = timeline_item.get('post').get('author')
+    #     print("Replying to: " + author.get('handle'))
+    #     
+    #     comment = bsky.comment(text="This is a comment from gokyuzu. Please ignore this comment.", 
+    #                            repo=bsky.SESSION.DID, 
+    #                            reply_root_uri=timeline_item.get('reply').get('root').get('uri'),
+    #                            reply_root_cid=timeline_item.get('reply').get('root').get('cid'),
+    #                            reply_parent_uri=timeline_item.get('post').get('uri'),
+    #                            reply_parent_cid=timeline_item.get('post').get('cid'))
+    #     bluesky_url = bsky.createLinkFromAtUri(comment.json().get('uri'))
+    #     print("click to see comment: " + bluesky_url)
