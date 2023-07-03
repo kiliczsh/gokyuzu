@@ -296,7 +296,7 @@ class Bluesky():
             raise ValueError("Invalid username")
 
         follow_request_data = {
-            "repo": self.DID,
+            "repo": self.SESSION.DID,
             "record": {
                 "subject": user_did,
                 "createdAt": BlueskyHelper.getTimestamp(),
@@ -317,7 +317,7 @@ class Bluesky():
             raise ValueError("Invalid username")
 
         unfollow_request_data = {
-            "repo": self.DID,
+            "repo": self.SESSION.DID,
             "record": {
                 "subject": user_did,
                 "createdAt": BlueskyHelper.getTimestamp(),
