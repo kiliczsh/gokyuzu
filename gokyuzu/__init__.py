@@ -220,17 +220,16 @@ class Bluesky():
         response = self.SESSION.postJson(request_url, json=request_data)
         return response
     
-    def deleteRecord(self, repo, record, collection, swapRecord=None, swapCommit=None):
+    def deleteRecord(self, repo, rkey, collection, swapRecord=None, swapCommit=None):
         request_url = self.ENDPOINTS.deleteRecord()
-        # TODO: rkey or record? 
         request_data = {
             "repo": repo,
-            "record": record,
+            "rkey": rkey,
             "collection": collection,
             "swapRecord": swapRecord,
             "swapCommit": swapCommit
         }
-        response = self.SESSION.postJson(request_url, json=request_data)
+        response = self.SESSION.post(request_url, json=request_data)
         return response
     
     def describeRepo(self, repo):
@@ -250,15 +249,14 @@ class Bluesky():
 
     def listRecords(self, user_did, collection, limit=10, record_key_start=None, record_key_end=None, reverse=False):
         request_url = self.ENDPOINTS.listRecords()
-        request_data = {
-            "repo": user_did,
-            "collection": collection,
-            "limit": limit,
-            "rkeyStart": record_key_start,
-            "rkeyEnd": record_key_end,
-            "reverse": reverse
-        }
-        response = self.SESSION.postJson(request_url, json=request_data)
+        request_url += "?repo={}&collection={}&limit={}".format(user_did, collection, limit)
+        if record_key_start is not None:
+            request_url += "&rkeyStart={}".format(record_key_start)
+        if record_key_end is not None:
+            request_url += "&rkeyEnd={}".format(record_key_end)
+        if reverse:
+            request_url += "&reverse=true"
+        response = self.SESSION.get(request_url)
         return response
     
     def putRecord(self, repo, collection, record_key, record, validate=True, swapRecord=None, swapCommit=None):
@@ -804,6 +802,73 @@ class Bluesky():
         request_url = self.ENDPOINTS.health()
         response = self.SESSION.get(request_url)
         return response
+    
+    def get_all_followers(self, handle, debug=False):
+        followers = []
+        next_cursor = None
+
+        while True:
+            if next_cursor is None:
+                response = self.getFollowers(handle, limit=100)
+            else:
+                response = self.getFollowers(handle, cursor=next_cursor, limit=100)
+            body = response.json()
+            followers.extend(body.get("followers", []))
+            old_cursor = next_cursor
+            next_cursor = body.get("cursor")
+
+            if old_cursor == next_cursor or not next_cursor:
+                break
+        if debug:
+            print("{} followers found for {}".format(len(followers), handle))
+        return followers
+
+    
+    def get_all_follows(self, handle, debug=False):
+        follows = []
+        next_cursor = None
+
+        while True:
+            if next_cursor is None:
+                response = self.getFollows(handle, limit=100)
+            else:
+                response = self.getFollows(handle, cursor=next_cursor, limit=100)
+            body = response.json()
+            follows.extend(body.get("follows", []))
+            old_cursor = next_cursor
+            next_cursor = body.get("cursor")
+
+            if old_cursor == next_cursor or not next_cursor:
+                break
+        if debug:
+            print("{} follows found for {}".format(len(follows), handle))
+        return follows
+    
+    def get_relavants_of(self, handle, debug=False):
+        followers = self.get_all_followers(handle, debug=debug)
+        follows = self.get_all_follows(handle, debug=debug)
+        follow_list = {}
+        for follower in followers:
+            follow_list[follower["handle"]] = follower
+        for follow in follows:
+            if follow["handle"] not in follow_list:
+                follow_list[follow["handle"]] = follow
+        return follow_list
+    
+    def merge_unique_lists(self, first_list, second_list):
+        merged_list = {}
+        for item in first_list:
+            merged_list[item["handle"]] = item
+        for item in second_list:
+            if item["handle"] not in merged_list:
+                merged_list[item["handle"]] = item
+        return merged_list
+    
+    def exclude_users(self, follow_list: dict, exluded_users):
+        for handle in exluded_users:
+            if handle in follow_list.keys():
+                follow_list.pop(handle)
+        return follow_list
     
     def createLinkFromAtUri(self, at_uri):
         did, rkey = BlueskyHelper.analyze_at_uri(at_uri)
