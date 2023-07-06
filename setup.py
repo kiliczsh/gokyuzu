@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gokyuzu',
-    version='2.0.6',
+    version='2.0.7',
     description='bsky.social client library',
     long_description=open('README.md', 'r', encoding='utf-8').read(),
     long_description_content_type='text/markdown',

@@ -857,11 +857,19 @@ class Bluesky():
     
     def merge_unique_lists(self, first_list, second_list):
         merged_list = {}
+        if len(first_list) == 0 and len(second_list) == 0:
+            return merged_list
+        
+        if len(first_list) == 0:
+            return second_list
+        elif len(second_list) == 0:
+            return first_list
+        
         for item in first_list:
-            merged_list[item["handle"]] = item
+            merged_list[item] = item
         for item in second_list:
-            if item["handle"] not in merged_list.keys():
-                merged_list[item["handle"]] = item
+            if item not in merged_list.keys():
+                merged_list[item] = item
         return merged_list
     
     def exclude_users(self, follow_list: dict, exluded_users):
