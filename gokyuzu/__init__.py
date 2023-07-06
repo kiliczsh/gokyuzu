@@ -860,7 +860,7 @@ class Bluesky():
         for item in first_list:
             merged_list[item["handle"]] = item
         for item in second_list:
-            if item["handle"] not in merged_list:
+            if item["handle"] not in merged_list.keys():
                 merged_list[item["handle"]] = item
         return merged_list
     
